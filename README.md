@@ -108,6 +108,11 @@ build:
 * Enable: "Only allow merge requests to be merged if the pipeline succeeds"
 
 
+# TODO
+
+* Secure private token in running container, possibly by converting it to docker secret
+
+
 # References
 
 * https://docs.gitlab.com/ce/ci/yaml/#only-and-except-simplified
