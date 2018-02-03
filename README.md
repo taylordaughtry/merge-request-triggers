@@ -6,7 +6,7 @@ It's a Fork of the original project: https://gitlab.com/ayufan/merge-requests-tr
 
 This application allows to trigger pipelines for Merge Requests in GitLab CI.
 
-This is done by acting as external HTTP service, registered in GitLab as a WebHook.<br>
+This is done by acting as external HTTP service, registered in GitLab as a WebHook.  
 It listens on events for Merge Requests, and if there is a new commit it calls GitLab API to create a Pipeline.
 
 It can be used to:
@@ -65,13 +65,13 @@ docker run -d --name mrt \
 
 ### As docker stack on swarm
 
-Deployment is automated as part of GitLab CI pipeline in this project.<br>
+Deployment is automated as part of GitLab CI pipeline in this project.  
 See details in `.gitlab-ci.yml` file.
 
-Deployment job runs this app as a Docker Stack, so it must be run on a Docker Swarm node with "manager" role.<br>
+Deployment job runs this app as a Docker Stack, so it must be run on a Docker Swarm node with "manager" role.  
 Run a GitLab runner on such node and register it with `swarm-manager` tag.
 
-GITLAB_API_TOKEN created above has to be added in this project under /settings/ci_cd > "Secret variables"<br>
+GITLAB_API_TOKEN created above has to be added in this project under /settings/ci_cd > "Secret variables"  
 It will be passed to the Application on deployment.
 
 There are 2 environments:
@@ -85,8 +85,8 @@ There are 2 environments:
 
 * To see logs including triggering pipelines run: `docker service logs -f <ENVIRONMENT>_mrt`
 
-* To see all webhook invocations go to: Project -> Settings -> Integrations, and click "Edit" for the webhook that you created above.<br>
-Application returns a lot of information - different HTTP codes for different cases, and HTTP body with more details, e.g. ID of the pipeline just created.<br>
+* To see all webhook invocations go to: Project -> Settings -> Integrations, and click "Edit" for the webhook that you created above.  
+Application returns a lot of information - different HTTP codes for different cases, and HTTP body with more details, e.g. ID of the pipeline just created.  
 Application is written in idempotent way, so you can retrigger any webhook without adverse affect (no duplicate pipelines will be created).
 
 
