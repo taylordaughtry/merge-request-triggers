@@ -68,17 +68,15 @@ docker run -d --name mrt \
 Deployment is automated as part of GitLab CI pipeline in this project.<br>
 See details in `.gitlab-ci.yml` file.
 
-Deployment job runs this Application as a Docker Stack, so it must run on a Docker Swarm node with "manager" role.<br>
+Deployment job runs this app as a Docker Stack, so it must be run on a Docker Swarm node with "manager" role.<br>
 Run a GitLab runner on such node and register it with `swarm-manager` tag.
 
 GITLAB_API_TOKEN created above has to be added in this project under /settings/ci_cd > "Secret variables"<br>
 It will be passed to the Application on deployment.
 
-There is currently just 1 environment:
-* "test" - listens on port 8181
-
-Deployment is triggered manually due to `when: manual` clause, but you can remove it to have automatic deployment for each build.<br>
-Pipeline can be easily extended for more environments, e.g. "prod" that will use a different port.
+There are 2 environments:
+* "test" - listens on port 8181, deployment triggered automatically for each build
+* "prod" - listens on port 8282, deployment triggered manually (due to `when: manual` clause)
 
 
 ## Monitor

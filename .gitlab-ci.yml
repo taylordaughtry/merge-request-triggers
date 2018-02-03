@@ -7,6 +7,10 @@ image: docker:latest
 stages:
   - build
   - test
+  - prod
+
+variables:
+  GITLAB_INSTANCE_ADDRESS: "https://gitlab.com"
 
 build:
   stage: build
@@ -23,7 +27,19 @@ deploy-test:
     name: test
   variables:
     PUBLISHED_PORT: 8181
-    GITLAB_INSTANCE_ADDRESS: https://gitlab.com
+  script:
+    - echo Deploying to environment $CI_ENVIRONMENT_NAME ...
+    - docker login -u $CI_REGISTRY_USER -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker stack deploy --with-registry-auth -c docker-compose.yml $CI_ENVIRONMENT_NAME
+
+deploy-prod:
+  stage: prod
+  tags:
+    - swarm-manager
+  environment:
+    name: prod
+  variables:
+    PUBLISHED_PORT: 8282
   when: manual
   script:
     - echo Deploying to environment $CI_ENVIRONMENT_NAME ...
