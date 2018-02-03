@@ -2,13 +2,14 @@
 services:
   - docker:dind
 
+image: docker:latest
+
 stages:
   - build
   - test
 
 build:
   stage: build
-  image: docker
   script:
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker login -u $CI_REGISTRY_USER -p "$CI_JOB_TOKEN" $CI_REGISTRY
@@ -24,7 +25,6 @@ deploy-test:
     PUBLISHED_PORT: 8181
     GITLAB_INSTANCE_ADDRESS: https://gitlab.com
   when: manual
-  image: docker
   script:
     - echo Deploying to environment $CI_ENVIRONMENT_NAME ...
     - docker login -u $CI_REGISTRY_USER -p "$CI_JOB_TOKEN" $CI_REGISTRY
