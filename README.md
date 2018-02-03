@@ -53,9 +53,19 @@ Application can serve multiple Git projects simultaneously, as it runs with user
 
 ## Run
 
-The simplest way to just try this Application is to pull Docker image from the Registry of this project and run it.
+### As standalone container
 
-However, deployment is now automated as part of GitLab CI pipeline in this project.<br>
+The simplest way to just try this Application is to pull Docker image from the Registry of this project and run it.
+```
+docker run -d --name mrt \
+	-p 8181:8080 \
+	registry.gitlab.com/boiko.ivan/merge-requests-triggers:latest \
+	-listen=:8080 -url=https://gitlab.com -private-token=...
+```
+
+### As docker stack on swarm
+
+Deployment is automated as part of GitLab CI pipeline in this project.<br>
 See details in `.gitlab-ci.yml` file.
 
 Deployment job runs this Application as a Docker Stack, so it must run on a Docker Swarm node with "manager" role.<br>
