@@ -253,7 +253,7 @@ func handlerWebhook(w http.ResponseWriter, r *http.Request) {
 
 	mr, err := getMergeRequest(webhook.Attributes.SourceProjectID, webhook.Attributes.IID)
 	if err != nil {
-		httpError(w, r, "error getting details of the MR:"+err.Error(), http.StatusInternalServerError)
+		httpError(w, r, "error getting details of the MR:"+err.Error(), http.StatusBadGateway)
 		return
 	}
 
@@ -296,7 +296,7 @@ func handlerWebhook(w http.ResponseWriter, r *http.Request) {
 
 	commit, err := getCommit(webhook.Attributes.SourceProjectID, webhook.Attributes.LastCommit.ID)
 	if err != nil {
-		httpError(w, r, "error getting details of the commit:"+err.Error(), http.StatusInternalServerError)
+		httpError(w, r, "error getting details of the commit:"+err.Error(), http.StatusBadGateway)
 		return
 	}
 	if commit.LastPipeline != nil {
@@ -308,13 +308,13 @@ func handlerWebhook(w http.ResponseWriter, r *http.Request) {
 
 	token, err := getTriggerToken(webhook.Attributes.SourceProjectID)
 	if err != nil {
-		httpError(w, r, "error getting trigger token - "+err.Error(), http.StatusInternalServerError)
+		httpError(w, r, "error getting trigger token - "+err.Error(), http.StatusBadGateway)
 		return
 	}
 
 	pipeline, err := runTrigger(webhook.Attributes.SourceProjectID, webhook.Attributes.SourceBranch, token)
 	if err != nil {
-		httpError(w, r, "error triggering pipeline - "+err.Error(), http.StatusInternalServerError)
+		httpError(w, r, "error triggering pipeline - "+err.Error(), http.StatusBadGateway)
 		return
 	}
 
