@@ -66,7 +66,7 @@ docker run -d --name mrt \
 ### As docker stack on swarm
 
 Deployment is automated as part of GitLab CI pipeline in this project.  
-See details in `.gitlab-ci.yml` file.
+See details in [.gitlab-ci.yml](.gitlab-ci.yml) file.
 
 Deployment job runs this app as a Docker Stack, so it must be run on a Docker Swarm node with "manager" role.  
 Run a GitLab runner on such node by running `./start_gitlab_runner.sh <TOKEN>`,  
