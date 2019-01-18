@@ -13,7 +13,8 @@ FROM alpine:3.6
 
 WORKDIR /opt
 
-# required to access HTTPS, otherwise will fail with error: x509: failed to load system roots and no roots provided
+# required to access GitLab server over HTTPS,
+# otherwise fails with error: x509: failed to load system roots and no roots provided
 RUN apk add --no-cache ca-certificates
 
 COPY --from=builder /go/bin/app .

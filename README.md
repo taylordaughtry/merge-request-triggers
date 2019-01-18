@@ -69,7 +69,9 @@ Deployment is automated as part of GitLab CI pipeline in this project.
 See details in `.gitlab-ci.yml` file.
 
 Deployment job runs this app as a Docker Stack, so it must be run on a Docker Swarm node with "manager" role.  
-Run a GitLab runner on such node and register it with `swarm-manager` tag.
+Run a GitLab runner on such node by running `./start_gitlab_runner.sh <TOKEN>`,  
+where TOKEN is a runner registration token from the project settings at:  
+Project -> Settings -> CI / CD -> Runners -> section "Set up a specific Runner manually"
 
 GITLAB_API_TOKEN created above has to be added in this project under /settings/ci_cd > "Secret variables"  
 It will be passed to the Application on deployment.
